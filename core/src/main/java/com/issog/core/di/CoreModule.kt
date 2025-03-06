@@ -1,6 +1,7 @@
 package com.issog.core.di
 
 import androidx.room.Room
+import com.issog.core.data.source.local.LocalDataSource
 import com.issog.core.data.source.local.room.db.BeritainDatabase
 import com.issog.core.data.source.remote.RemoteDataSource
 import com.issog.core.data.source.remote.network.ApiService
@@ -14,10 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 val databaseModule = module {
-    factory {
-        get<BeritainDatabase>().sourceDao()
-        get<BeritainDatabase>().articleDao()
-    }
+    factory { get<BeritainDatabase>().articleDao() }
+    factory { get<BeritainDatabase>().sourceDao() }
     single {
         Room.databaseBuilder(
             androidContext(),
@@ -52,4 +51,5 @@ val networkModule = module {
 
 val repositoryModule = module {
     single { RemoteDataSource(get()) }
+    single { LocalDataSource(get(), get()) }
 }
