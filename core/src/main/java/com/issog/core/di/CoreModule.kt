@@ -1,14 +1,31 @@
 package com.issog.core.di
 
+import androidx.room.Room
+import com.issog.core.data.source.local.room.db.BeritainDatabase
 import com.issog.core.data.source.remote.RemoteDataSource
 import com.issog.core.data.source.remote.network.ApiService
 import com.issog.core.utils.security.BeritainNativeLibs
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+
+val databaseModule = module {
+    factory {
+        get<BeritainDatabase>().sourceDao()
+        get<BeritainDatabase>().articleDao()
+    }
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            BeritainDatabase::class.java,
+            "beritain.db"
+        ).fallbackToDestructiveMigration().build()
+    }
+}
 
 val networkModule = module {
     single {
