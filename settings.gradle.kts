@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "BeritainApp"
 include(":app")
- 
+include(":core")
