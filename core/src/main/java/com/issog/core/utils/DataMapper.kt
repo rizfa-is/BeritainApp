@@ -33,7 +33,7 @@ object DataMapper {
     fun List<ArticleEntity>.mapArticleEntityToModel(): List<ArticleModel> =
         this.map { article ->
             ArticleModel(
-                indexOf(article),
+                article.id,
                 article.urlToImage.orEmpty(),
                 article.description.orEmpty(),
                 article.source.orEmpty(),
