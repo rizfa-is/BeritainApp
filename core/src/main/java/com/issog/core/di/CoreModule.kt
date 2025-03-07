@@ -16,7 +16,6 @@ import java.util.concurrent.TimeUnit
 
 val databaseModule = module {
     factory { get<BeritainDatabase>().articleDao() }
-    factory { get<BeritainDatabase>().sourceDao() }
     single {
         Room.databaseBuilder(
             androidContext(),
@@ -51,5 +50,5 @@ val networkModule = module {
 
 val repositoryModule = module {
     single { RemoteDataSource(get()) }
-    single { LocalDataSource(get(), get()) }
+    single { LocalDataSource(get()) }
 }
