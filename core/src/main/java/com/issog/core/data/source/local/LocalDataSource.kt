@@ -7,17 +7,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
 class LocalDataSource(private val articleDao: ArticleDao): ILocalDataSource {
-    override fun getArticles(): Flow<List<ArticleEntity>> {
-        return articleDao.getArticles()
-    }
-
     override fun getFavoriteArticle(): Flow<List<ArticleEntity>> {
         return articleDao.getFavoriteArticle()
             .flowOn(Dispatchers.Default)
     }
 
-    override suspend fun insertArticles(articles: List<ArticleEntity>) {
-        articleDao.insertArticles(articles)
+    override suspend fun insertFavoriteArticles(article: ArticleEntity) {
+        articleDao.insertArticle(article)
     }
 
     override fun updateFavoriteArticle(articleEntity: ArticleEntity) {
