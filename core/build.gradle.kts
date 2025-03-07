@@ -79,4 +79,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //kotlin flow test
+    testImplementation(libs.turbine)
+    testImplementation(libs.truth)
+    testImplementation(libs.coroutine.test)
 }
