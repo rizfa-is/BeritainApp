@@ -16,6 +16,7 @@ navigation = "2.8.8"
 koin = "3.5.6"
 lifecycle = "2.8.7"
 glide = "4.16.0"
+sqlChiper = "4.5.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,11 +39,11 @@ koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = 
 lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+sql-cipher = { module = "net.zetetic:android-database-sqlcipher", version.ref = "sqlChiper" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "kotlin-parcelize" }
-kotlin-kapt = { id = "kotlin-kapt" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.27" }

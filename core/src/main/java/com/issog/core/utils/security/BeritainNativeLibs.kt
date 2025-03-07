@@ -9,4 +9,6 @@ object BeritainNativeLibs {
     external fun beritainBaseUrl(): String
     external fun getNewsSourceUrl(): String
     external fun getTopHeadlineByCategoryUrl(): String
+    external fun beritainDb(): String
+    external fun beritainPassphrase(): String
 }

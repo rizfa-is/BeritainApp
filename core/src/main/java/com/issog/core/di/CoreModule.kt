@@ -8,6 +8,8 @@ import com.issog.core.data.source.remote.RemoteDataSource
 import com.issog.core.data.source.remote.network.ApiService
 import com.issog.core.domain.repository.IBeritainRepository
 import com.issog.core.utils.security.BeritainNativeLibs
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -19,11 +21,18 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<BeritainDatabase>().articleDao() }
     single {
+        val passphrase = SQLiteDatabase.getBytes(BeritainNativeLibs.beritainPassphrase().toCharArray())
+        val factory = SupportFactory(passphrase)
+
         Room.databaseBuilder(
             androidContext(),
             BeritainDatabase::class.java,
-            "beritain.db"
-        ).fallbackToDestructiveMigration().build()
+            BeritainNativeLibs.beritainDb()
+        )
+            .openHelperFactory(factory)
+            .addMigrations()
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }
 

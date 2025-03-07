@@ -25,3 +25,15 @@ Java_com_issog_core_utils_security_BeritainNativeLibs_getTopHeadlineByCategoryUr
     std::string value = "top-headlines";
     return env ->NewStringUTF(value.c_str());
 }
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_issog_core_utils_security_BeritainNativeLibs_beritainDb(JNIEnv *env, jobject thiz) {
+    std::string value = "beritain.db";
+    return env ->NewStringUTF(value.c_str());
+}
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_issog_core_utils_security_BeritainNativeLibs_beritainPassphrase(JNIEnv *env,jobject thiz) {
+    std::string value = "DlyQ93bfKmYZ8Zy7BGt6tKELWtGmifc4";
+    return env ->NewStringUTF(value.c_str());
+}

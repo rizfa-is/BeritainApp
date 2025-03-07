@@ -61,6 +61,7 @@ dependencies {
     // room
     api(libs.androidx.room)
     ksp(libs.androidx.roomcompiler)
+    api(libs.sql.cipher)
 
     // retrofit
     api(libs.retrofit2)
