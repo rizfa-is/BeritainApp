@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SourceResponse(
 	@SerializedName("sources")
-	val sources: List<SourcesItem?>? = null,
+	val sources: List<SourcesItem>? = null,
 	@SerializedName("status")
 	val status: String? = null
 ) {
