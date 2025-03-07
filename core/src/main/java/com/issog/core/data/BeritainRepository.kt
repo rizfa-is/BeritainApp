@@ -75,11 +75,7 @@ class BeritainRepository(
         localDataSource.insertFavoriteArticles(article)
     }
 
-    override fun updateFavoriteArticle(
-        article: ArticleEntity,
-        isFavorite: Boolean
-    ) {
-        article.favorite = isFavorite
+    override fun updateFavoriteArticle(article: ArticleEntity,) {
         localDataSource.updateFavoriteArticle(article)
     }
 }

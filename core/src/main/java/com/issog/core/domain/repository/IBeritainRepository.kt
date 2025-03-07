@@ -11,5 +11,5 @@ interface IBeritainRepository {
     fun getTopHeadlineByCategory(category: String): Flow<Resources<List<ArticleModel>>>
     fun getFavoriteArticle(): Flow<Resources<List<ArticleModel>>>
     suspend fun addFavoriteArticle(article: ArticleEntity)
-    fun updateFavoriteArticle(article: ArticleEntity, isFavorite: Boolean)
+    fun updateFavoriteArticle(article: ArticleEntity)
 }
