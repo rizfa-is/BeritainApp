@@ -1,4 +1,4 @@
-package com.issog.beritainapp.ui.home
+package com.issog.beritainapp.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
