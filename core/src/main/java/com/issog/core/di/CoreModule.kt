@@ -2,8 +2,10 @@ package com.issog.core.di
 
 import androidx.room.Room
 import com.issog.core.data.BeritainRepository
+import com.issog.core.data.source.local.ILocalDataSource
 import com.issog.core.data.source.local.LocalDataSource
 import com.issog.core.data.source.local.room.db.BeritainDatabase
+import com.issog.core.data.source.remote.IRemoteDataSource
 import com.issog.core.data.source.remote.RemoteDataSource
 import com.issog.core.data.source.remote.network.ApiService
 import com.issog.core.domain.repository.IBeritainRepository
@@ -60,7 +62,7 @@ val networkModule = module {
 }
 
 val repositoryModule = module {
-    single { RemoteDataSource(get()) }
-    single { LocalDataSource(get()) }
+    single<IRemoteDataSource>  { RemoteDataSource(get()) }
+    single<ILocalDataSource>  { LocalDataSource(get()) }
     single<IBeritainRepository> { BeritainRepository(get(), get()) }
 }

@@ -11,4 +11,10 @@
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home"/>
 
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.issog.beritainapp.ui.news.NewsFragment"
+        android:label="NewsFragment"
+        tools:layout="@layout/fragment_news"/>
+
 </navigation>

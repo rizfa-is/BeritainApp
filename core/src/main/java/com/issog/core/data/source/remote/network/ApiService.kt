@@ -14,6 +14,10 @@ interface ApiService {
     @GET
     suspend fun getTopHeadlineByCategory(
         @Url url: String,
-        @Query("category") category: String
+        @Query("category") category: String,
+        @Query("sources") sources: String,
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int,
+        @Query("q") search: String
     ): Response<TopHeadlineResponse>
 }

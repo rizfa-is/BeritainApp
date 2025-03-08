@@ -5,6 +5,7 @@ import com.issog.core.data.source.local.room.entites.ArticleEntity
 import com.issog.core.data.source.remote.IRemoteDataSource
 import com.issog.core.data.source.remote.RemoteSafeApiCall
 import com.issog.core.data.source.remote.network.ApiResponse
+import com.issog.core.data.source.remote.request.NewsRequest
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.domain.model.SourceModel
 import com.issog.core.domain.repository.IBeritainRepository
@@ -38,10 +39,10 @@ class BeritainRepository(
         }
     }
 
-    override fun getTopHeadlineByCategory(category: String): Flow<Resources<List<ArticleModel>>> {
+    override fun getTopHeadlineByCategory(newsRequest: NewsRequest): Flow<Resources<List<ArticleModel>>> {
         return channelFlow {
             try {
-                remoteDataSource.getTopHeadlineByCategory(category).collectLatest { api ->
+                remoteDataSource.getTopHeadlineByCategory(newsRequest).collectLatest { api ->
                     when(api) {
                         is ApiResponse.Success -> trySend(Resources.Success(api.data.articles.mapArticleResponseToModel()))
                         is ApiResponse.Error -> trySend(Resources.Error(api.code, api.message))
