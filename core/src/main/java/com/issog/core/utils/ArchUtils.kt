@@ -5,13 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
 object ArchUtils {
-    fun <T>Fragment.observe(livedata: LiveData<T>, observer: Observer<T>) {
+    fun <T>Fragment.observe(livedata: LiveData<T>, observer: Observer<T?>) {
         val mObserver = Observer<T> { value ->
             if (value is UiState.Loading) {
                 observer.onChanged(value)
             } else {
                 observer.onChanged(value)
-                livedata.removeObservers(viewLifecycleOwner)
+                observer.onChanged(null)
+                livedata.removeObserver(observer)
             }
         }
         livedata.observe(viewLifecycleOwner, mObserver)

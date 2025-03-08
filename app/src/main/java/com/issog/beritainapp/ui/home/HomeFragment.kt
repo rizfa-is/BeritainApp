@@ -1,20 +1,23 @@
 package com.issog.beritainapp.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.issog.beritainapp.R
 import com.issog.beritainapp.databinding.FragmentHomeBinding
 import com.issog.beritainapp.ui.home.adapter.HomeCategoryAdapter
 import com.issog.beritainapp.ui.home.adapter.HomeSourceAdapter
 import com.issog.beritainapp.utils.DataGenerator
 import com.issog.core.domain.model.SourceModel
 import com.issog.core.utils.ArchUtils.observe
+import com.issog.core.utils.NavigationUtils.safeNavigate
 import com.issog.core.utils.UiState
 import com.issog.core.utils.gone
 import com.issog.core.utils.visible
@@ -43,8 +46,7 @@ class HomeFragment : Fragment() {
         observe(homeViewModel.sourceList, ::handleGetSourceList)
     }
 
-    private fun handleGetSourceList(result: UiState<List<SourceModel>>) {
-        Log.d("result",result.toString())
+    private fun handleGetSourceList(result: UiState<List<SourceModel>>?) {
         when(result) {
             is UiState.Loading -> {
                 binding.pbSource.visible()
@@ -65,6 +67,8 @@ class HomeFragment : Fragment() {
                 binding.rvSource.visible()
                 initSourceAdapters(result.data)
             }
+
+            else -> {}
         }
     }
 
@@ -77,7 +81,7 @@ class HomeFragment : Fragment() {
         val catAdapter = HomeCategoryAdapter()
         catAdapter.initData(categories)
         catAdapter.initClick { cat ->
-            Toast.makeText(activity, cat.category, Toast.LENGTH_SHORT).show()
+            findNavController().safeNavigate(R.id.newsFragment, bundleOf("category" to cat))
         }
 
         binding.rvCategory.apply {
@@ -91,7 +95,7 @@ class HomeFragment : Fragment() {
         val sourceAdapter = HomeSourceAdapter()
         sourceAdapter.initData(data)
         sourceAdapter.initClick { src ->
-            Toast.makeText(activity, src.name, Toast.LENGTH_SHORT).show()
+            findNavController().safeNavigate(R.id.newsFragment, bundleOf("source" to src))
         }
 
         binding.rvSource.apply {

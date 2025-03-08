@@ -5,6 +5,7 @@ import com.google.common.truth.Truth.assertThat
 import com.issog.core.data.BeritainRepository
 import com.issog.core.data.Resources
 import com.issog.core.data.source.local.room.entites.ArticleEntity
+import com.issog.core.data.source.remote.request.NewsRequest
 import com.issog.core.data.source.remote.response.SourceResponse
 import com.issog.core.data.source.remote.response.TopHeadlineResponse
 import com.issog.core.domain.usecase.BeritainCategory
@@ -63,7 +64,7 @@ class BeritainRepositoryTest {
             ).mapArticleResponseToModel()
         )
 
-        beritainRepository.getTopHeadlineByCategory(BeritainCategory.HEALTH.value).test {
+        beritainRepository.getTopHeadlineByCategory(NewsRequest()).test {
             val emission = awaitItem()
             assertThat(emission).isEqualTo(expected)
             cancelAndConsumeRemainingEvents()

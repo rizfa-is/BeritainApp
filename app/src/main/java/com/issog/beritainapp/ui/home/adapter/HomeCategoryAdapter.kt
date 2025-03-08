@@ -15,6 +15,7 @@ class HomeCategoryAdapter:RecyclerView.Adapter<HomeCategoryAdapter.ViewHolder>()
         fun bind(category: ItemCategory) {
             Glide.with(binding.root.context)
                 .load(category.image)
+                .placeholder(com.issog.core.R.drawable.ic_placeholder)
                 .into(binding.ivCategory)
             binding.tvCategory.text = category.category
             binding.root.setOnClickListener { onCLick.invoke(category) }

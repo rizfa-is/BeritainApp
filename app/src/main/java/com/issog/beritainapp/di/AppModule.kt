@@ -1,6 +1,7 @@
-package com.issog.beritainapp.ui.di
+package com.issog.beritainapp.di
 
 import com.issog.beritainapp.ui.home.HomeViewModel
+import com.issog.beritainapp.ui.news.NewsViewModel
 import com.issog.core.domain.usecase.BeritainInteractor
 import com.issog.core.domain.usecase.BeritainUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -12,4 +13,5 @@ val useCaseModule = module {
 
 val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
+    viewModel { NewsViewModel(get()) }
 }

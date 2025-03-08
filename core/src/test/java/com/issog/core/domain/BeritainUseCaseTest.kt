@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
 import com.issog.core.data.Resources
 import com.issog.core.data.source.local.room.entites.ArticleEntity
+import com.issog.core.data.source.remote.request.NewsRequest
 import com.issog.core.data.source.remote.response.SourceResponse
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.domain.usecase.BeritainCategory
@@ -50,7 +51,7 @@ class BeritainUseCaseTest {
     fun `error get article top headline with error code 401`() = runTest {
         val expected = Resources.Error<List<ArticleModel>>(code = 401, message = "")
 
-        beritainUseCase.getTopHeadlineByCategory(BeritainCategory.HEALTH).test {
+        beritainUseCase.getTopHeadlineByCategory(NewsRequest()).test {
             val emission = awaitItem()
             assertThat(emission).isEqualTo(expected)
             cancelAndConsumeRemainingEvents()

@@ -1,7 +1,7 @@
 package com.issog.beritainapp
 
-import com.issog.beritainapp.ui.di.useCaseModule
-import com.issog.beritainapp.ui.di.viewModelModule
+import com.issog.beritainapp.di.useCaseModule
+import com.issog.beritainapp.di.viewModelModule
 import com.issog.core.utils.base.BaseApplication
 import org.koin.core.KoinApplication
 import org.koin.core.module.Module

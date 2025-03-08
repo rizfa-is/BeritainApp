@@ -1,6 +1,7 @@
 package com.issog.core.domain.usecase
 
 import com.issog.core.data.Resources
+import com.issog.core.data.source.remote.request.NewsRequest
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.domain.model.SourceModel
 import com.issog.core.domain.repository.IBeritainRepository
@@ -12,8 +13,8 @@ class BeritainInteractor(private val repository: IBeritainRepository): BeritainU
         return repository.getNewsSources()
     }
 
-    override fun getTopHeadlineByCategory(beritainCategory: BeritainCategory): Flow<Resources<List<ArticleModel>>> {
-        return repository.getTopHeadlineByCategory(beritainCategory.value)
+    override fun getTopHeadlineByCategory(newsRequest: NewsRequest): Flow<Resources<List<ArticleModel>>> {
+        return repository.getTopHeadlineByCategory(newsRequest)
     }
 
     override fun getFavoriteArticle(): Flow<Resources<List<ArticleModel>>> {

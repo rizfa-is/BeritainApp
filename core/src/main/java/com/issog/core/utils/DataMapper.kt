@@ -22,8 +22,8 @@ object DataMapper {
             ArticleModel(
                 indexOf(article),
                 article.urlToImage.orEmpty(),
-                article.description.orEmpty(),
-                article.source?.name.orEmpty(),
+                article.content.orEmpty(),
+                article.author.orEmpty(),
                 article.title.orEmpty(),
                 article.url.orEmpty(),
                 false
@@ -35,8 +35,8 @@ object DataMapper {
             ArticleModel(
                 article.id,
                 article.urlToImage.orEmpty(),
-                article.description.orEmpty(),
-                article.source.orEmpty(),
+                article.content.orEmpty(),
+                article.author.orEmpty(),
                 article.title.orEmpty(),
                 article.url.orEmpty(),
                 false
@@ -47,8 +47,8 @@ object DataMapper {
         ArticleEntity(
             id,
             urlToImage,
-            description,
-            source,
+            content,
+            author,
             title,
             url,
             favorite

@@ -11,10 +11,10 @@ data class ArticleEntity(
     var id: Int,
     @ColumnInfo(name = "urlToImage")
     var urlToImage: String? = null,
-    @ColumnInfo(name = "description")
-    var description: String? = null,
-    @ColumnInfo(name = "source")
-    var source: String? = null,
+    @ColumnInfo(name = "content")
+    var content: String? = null,
+    @ColumnInfo(name = "author")
+    var author: String? = null,
     @ColumnInfo(name = "title")
     var title: String? = null,
     @ColumnInfo(name = "url")
