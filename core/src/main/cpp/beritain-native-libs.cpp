@@ -10,7 +10,7 @@ Java_com_issog_core_utils_security_BeritainNativeLibs_beritainApiKey(JNIEnv *env
 extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_issog_core_utils_security_BeritainNativeLibs_beritainBaseUrl(JNIEnv *env, jobject thiz) {
-    std::string value = "https://newsapi.org/v2";
+    std::string value = "https://newsapi.org/v2/";
     return env ->NewStringUTF(value.c_str());
 }
 extern "C"
