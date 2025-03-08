@@ -5,18 +5,20 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.issog.beritainapp.R
 import com.issog.beritainapp.databinding.FragmentNewsBinding
 import com.issog.beritainapp.ui.home.model.ItemCategory
 import com.issog.beritainapp.ui.news.adapter.NewsAdapter
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.domain.model.SourceModel
-import com.issog.core.utils.ArchUtils.observe
+import com.issog.core.utils.NavigationUtils.safeNavigate
 import com.issog.core.utils.UiState
 import com.issog.core.utils.gone
 import com.issog.core.utils.visible
@@ -86,7 +88,12 @@ class NewsFragment : Fragment() {
     }
 
     private suspend fun initNewsList(data: PagingData<ArticleModel>) {
-        newsAdapter.initClick { Toast.makeText(activity, it?.author.orEmpty() , Toast.LENGTH_SHORT).show() }
+        newsAdapter.initClick {
+            findNavController().safeNavigate(
+                R.id.newsDetailFragment,
+                bundleOf("url" to it?.url.orEmpty())
+            )
+        }
         binding.rvNews.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = newsAdapter
