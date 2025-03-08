@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="16dp"
     android:paddingHorizontal="16dp"
     tools:context=".ui.home.HomeFragment">
 
@@ -11,11 +12,12 @@
         android:id="@+id/tv_title_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TOP NEWS"
-        android:textSize="24sp"
-        android:textColor="@color/main_theme_red"
         android:fontFamily="@font/poppins_bold"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:text="TOP NEWS"
+        android:textColor="@color/main_theme_red"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_title_bottom"
@@ -23,17 +25,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:text="WORLDWIDE"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textColor="@color/black"
         android:fontFamily="@font/poppins_regular"
         app:layout_constraintStart_toEndOf="@id/tv_title_top"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <ImageView
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_favorite_mark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title_bottom" />
+
     <TextView
         android:id="@+id/tv_browse_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="Browse by Category"
         android:textColor="@color/black"
         android:fontFamily="@font/poppins_regular"
@@ -43,7 +52,7 @@
         android:id="@+id/rv_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_browse_category"
         tools:layout_editor_absoluteX="16dp" />
 
@@ -61,8 +70,20 @@
         android:id="@+id/rv_source"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/tv_browse_source"
         tools:layout_editor_absoluteX="16dp" />
+
+    <ProgressBar
+        android:id="@+id/pb_source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:indeterminateTint="@color/main_theme_red"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/rv_source"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rv_source" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
