@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
@@ -18,12 +19,12 @@ import com.issog.beritainapp.ui.home.model.ItemCategory
 import com.issog.beritainapp.ui.news.adapter.NewsAdapter
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.domain.model.SourceModel
+import com.issog.core.utils.ArchUtils.observe
 import com.issog.core.utils.NavigationUtils.safeNavigate
-import com.issog.core.utils.UiState
 import com.issog.core.utils.gone
 import com.issog.core.utils.visible
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +32,7 @@ class NewsFragment : Fragment() {
     private lateinit var binding: FragmentNewsBinding
     private val newsViewModel: NewsViewModel by viewModel()
     private val newsAdapter by lazy { NewsAdapter() }
+    private var searchJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,37 +54,31 @@ class NewsFragment : Fragment() {
 
             etSearch.addTextChangedListener { text: Editable? ->
                 val txtSearch = text.toString()
-
                 if (txtSearch.length > 6 || txtSearch.isEmpty()) {
-                    newsViewModel.getNews(
-                        category?.category.orEmpty(),
-                        source?.id.orEmpty(),
-                        txtSearch
-                    )
+                    debounceSearchAction {
+                        newsViewModel.getNews(
+                            category?.category.orEmpty(),
+                            source?.id.orEmpty(),
+                            txtSearch
+                        ).handleGetNews()
+                    }
                 }
             }
 
-            newsViewModel.getNews(category?.category.orEmpty(), source?.id.orEmpty())
-            handleGetNews()
+            newsViewModel.getNews(category?.category.orEmpty(), source?.id.orEmpty()).handleGetNews()
         }
     }
 
-    private fun handleGetNews() {
-        lifecycleScope.launch {
-            newsViewModel.newsList.collectLatest { result ->
-                when(result) {
-                    is UiState.Loading -> {
-                        binding.pbNews.visible()
-                        binding.rvNews.gone()
-                    }
-                    is UiState.Success -> {
-                        delay(500)
-                        binding.pbNews.gone()
-                        binding.rvNews.visible()
-                        initNewsList(result.data)
-                    }
-                    else -> {}
-                }
+    private fun LiveData<PagingData<ArticleModel>>.handleGetNews() {
+        observe(this) { result ->
+            lifecycleScope.launch {
+                binding.pbNews.visible()
+                binding.rvNews.gone()
+
+                delay(500)
+                binding.pbNews.gone()
+                binding.rvNews.visible()
+                result?.let { initNewsList(it) }
             }
         }
     }
@@ -99,5 +95,20 @@ class NewsFragment : Fragment() {
             adapter = newsAdapter
         }
         newsAdapter.submitData(data)
+    }
+
+    private fun debounceSearchAction(action: () -> Unit) {
+        searchJob?.cancel()
+        searchJob = null
+        searchJob = lifecycleScope.launch {
+            delay(1000)
+            action.invoke()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        searchJob?.cancel()
+        searchJob = null
     }
 }

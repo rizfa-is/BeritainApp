@@ -2,6 +2,7 @@ package com.issog.core.source
 
 import com.issog.core.data.source.remote.IRemoteDataSource
 import com.issog.core.data.source.remote.network.ApiResponse
+import com.issog.core.data.source.remote.request.NewsRequest
 import com.issog.core.data.source.remote.response.SourceResponse
 import com.issog.core.data.source.remote.response.TopHeadlineResponse
 import kotlinx.coroutines.flow.Flow
@@ -23,7 +24,7 @@ class FakeRemoteDataSource: IRemoteDataSource {
         }
     }
 
-    override suspend fun getTopHeadlineByCategory(category: String): Flow<ApiResponse<TopHeadlineResponse>> {
+    override suspend fun getTopHeadlineByCategory(newsRequest: NewsRequest): Flow<ApiResponse<TopHeadlineResponse>> {
         return flow {
             emit(ApiResponse.Success(
                 TopHeadlineResponse(

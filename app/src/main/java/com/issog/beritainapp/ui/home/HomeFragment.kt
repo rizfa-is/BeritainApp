@@ -42,7 +42,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun fetchData() {
-        homeViewModel.getSources()
         observe(homeViewModel.sourceList, ::handleGetSourceList)
     }
 
