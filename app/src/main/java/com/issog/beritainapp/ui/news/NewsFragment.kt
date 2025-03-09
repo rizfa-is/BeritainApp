@@ -17,6 +17,7 @@ import com.issog.beritainapp.R
 import com.issog.beritainapp.databinding.FragmentNewsBinding
 import com.issog.beritainapp.ui.home.model.ItemCategory
 import com.issog.beritainapp.ui.news.adapter.NewsAdapter
+import com.issog.beritainapp.ui.news.adapter.NewsLoadingStateAdapter
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.domain.model.SourceModel
 import com.issog.core.utils.ArchUtils.observe
@@ -92,7 +93,11 @@ class NewsFragment : Fragment() {
         }
         binding.rvNews.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = newsAdapter
+            adapter = newsAdapter.withLoadStateFooter(
+                footer = NewsLoadingStateAdapter().also {
+                    it.initClick { newsAdapter.retry() }
+                }
+            )
         }
         newsAdapter.submitData(data)
     }
