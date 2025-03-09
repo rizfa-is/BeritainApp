@@ -1,18 +1,19 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
-    namespace = "com.issog.beritainapp"
-    compileSdk = 34
+    namespace = rootProject.extra.get("appId") as String?
+    compileSdk = rootProject.extra.get("compileSdk") as Int?
 
     defaultConfig {
-        applicationId = "com.issog.beritainapp"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = rootProject.extra.get("appId") as String?
+        minSdk = rootProject.extra.get("minSdk") as Int?
+        targetSdk = rootProject.extra.get("targetSdk") as Int?
+        versionCode = rootProject.extra.get("versionCode") as Int?
+        versionName = rootProject.extra.get("versionName") as String?
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,16 +34,30 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+    api(project(":core"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
+    testImplementation(libs.junit.junit)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //mock looper in viewmodel
+    testImplementation(libs.test.core)
+
+    //mockito
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+
+    // kotlin coroutines test
+    testImplementation(libs.coroutine.test)
+
+    //kotlin flow test
+    testImplementation(libs.turbine)
+    testImplementation(libs.truth)
 }
