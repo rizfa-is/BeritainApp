@@ -79,7 +79,7 @@ dependencies {
     // paging
     api(libs.androidx.paging.runtime.ktx)
 
-    testImplementation(libs.junit)
+    testImplementation(libs.junit.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 

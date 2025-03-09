@@ -41,4 +41,23 @@ android {
 
 dependencies {
     api(project(":core"))
+
+    testImplementation(libs.junit.junit)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    //mock looper in viewmodel
+    testImplementation(libs.test.core)
+
+    //mockito
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+
+    // kotlin coroutines test
+    testImplementation(libs.coroutine.test)
+
+    //kotlin flow test
+    testImplementation(libs.turbine)
+    testImplementation(libs.truth)
 }
