@@ -14,7 +14,6 @@ import com.issog.core.domain.paging.NewsPagingSource
 import com.issog.core.domain.repository.IBeritainRepository
 import com.issog.core.utils.DataMapper.mapArticleDomainToEntity
 import com.issog.core.utils.UiState
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 
 class BeritainInteractor(private val repository: IBeritainRepository): BeritainUseCase {
@@ -40,15 +39,33 @@ class BeritainInteractor(private val repository: IBeritainRepository): BeritainU
         ).liveData
     }
 
-    override fun getFavoriteArticle(): Flow<Resources<List<ArticleModel>>> {
-        return repository.getFavoriteArticle()
+    override fun getFavoriteArticle(query: String): LiveData<UiState<List<ArticleModel>>> {
+        return liveData {
+            emit(UiState.Loading)
+            repository.getFavoriteArticle().collectLatest { result ->
+                emit(
+                    when(result) {
+                        is Resources.Error -> UiState.Error(result.code, result.message)
+                        is Resources.NetworkError -> UiState.NetworkError
+                        is Resources.Success -> {
+                            val favorite = result.data
+                            val newFavorite = favorite.toMutableList()
+                            newFavorite.removeIf { !it.title.lowercase().contains(query.lowercase()) }
+
+                            val emitData = if (query.isNotEmpty()) newFavorite else favorite
+                            UiState.Success(emitData)
+                        }
+                    }
+                )
+            }
+        }
     }
 
     override suspend fun addFavoriteArticle(article: ArticleModel) {
         repository.addFavoriteArticle(article.mapArticleDomainToEntity())
     }
 
-    override fun updateFavoriteArticle(article: ArticleModel) {
-        repository.updateFavoriteArticle(article.mapArticleDomainToEntity())
+    override suspend fun deleteFavoriteArticle(article: ArticleModel) {
+        repository.deleteFavoriteArticle(article.mapArticleDomainToEntity())
     }
 }

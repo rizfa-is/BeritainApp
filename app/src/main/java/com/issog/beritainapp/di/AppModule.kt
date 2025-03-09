@@ -1,5 +1,6 @@
 package com.issog.beritainapp.di
 
+import com.issog.beritainapp.ui.favorite.FavoriteViewModel
 import com.issog.beritainapp.ui.home.HomeViewModel
 import com.issog.beritainapp.ui.news.NewsViewModel
 import com.issog.core.domain.usecase.BeritainInteractor
@@ -14,4 +15,5 @@ val useCaseModule = module {
 val viewModelModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { NewsViewModel(get()) }
+    viewModel { FavoriteViewModel(get()) }
 }

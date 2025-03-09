@@ -29,7 +29,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class NewsFragment : Fragment() {
+class NewsFragment : Fragment(), NewsItemClickCallback {
     private lateinit var binding: FragmentNewsBinding
     private val newsViewModel: NewsViewModel by viewModel()
     private val newsAdapter by lazy { NewsAdapter() }
@@ -46,6 +46,7 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        initNewsList()
     }
 
     private fun initViews() {
@@ -79,18 +80,13 @@ class NewsFragment : Fragment() {
                 delay(500)
                 binding.pbNews.gone()
                 binding.rvNews.visible()
-                result?.let { initNewsList(it) }
+                result?.let { newsAdapter.submitData(it) }
             }
         }
     }
 
-    private suspend fun initNewsList(data: PagingData<ArticleModel>) {
-        newsAdapter.initClick {
-            findNavController().safeNavigate(
-                R.id.newsDetailFragment,
-                bundleOf("url" to it?.url.orEmpty())
-            )
-        }
+    private fun initNewsList() {
+        newsAdapter.initCallback(this)
         binding.rvNews.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = newsAdapter.withLoadStateFooter(
@@ -99,7 +95,6 @@ class NewsFragment : Fragment() {
                 }
             )
         }
-        newsAdapter.submitData(data)
     }
 
     private fun debounceSearchAction(action: () -> Unit) {
@@ -115,5 +110,20 @@ class NewsFragment : Fragment() {
         super.onDestroy()
         searchJob?.cancel()
         searchJob = null
+    }
+
+    override fun onNewsClick(articleModel: ArticleModel) {
+        findNavController().safeNavigate(
+            R.id.newsDetailFragment,
+            bundleOf("url" to articleModel.url)
+        )
+    }
+
+    override fun onSaveFavorite(articleModel: ArticleModel) {
+        newsViewModel.addFavorite(articleModel)
+    }
+
+    override fun onDeleteFavorite(articleModel: ArticleModel) {
+        newsViewModel.addFavorite(articleModel)
     }
 }

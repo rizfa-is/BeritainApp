@@ -8,7 +8,6 @@ import com.issog.core.data.source.local.room.entites.ArticleEntity
 import com.issog.core.data.source.remote.request.NewsRequest
 import com.issog.core.data.source.remote.response.SourceResponse
 import com.issog.core.data.source.remote.response.TopHeadlineResponse
-import com.issog.core.domain.usecase.BeritainCategory
 import com.issog.core.source.FakeLocalDataSource
 import com.issog.core.source.FakeRemoteDataSource
 import com.issog.core.utils.DataMapper.mapArticleEntityToModel

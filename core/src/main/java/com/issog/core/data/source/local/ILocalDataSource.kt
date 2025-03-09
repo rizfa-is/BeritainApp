@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface ILocalDataSource {
     fun getFavoriteArticle(): Flow<List<ArticleEntity>>
     suspend fun insertFavoriteArticles(article: ArticleEntity)
-    fun updateFavoriteArticle(articleEntity: ArticleEntity)
+    suspend fun deleteFavoriteArticle(articleEntity: ArticleEntity)
 }

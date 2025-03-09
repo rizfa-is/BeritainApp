@@ -5,15 +5,17 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.issog.beritainapp.databinding.BeritainItemNewsBinding
+import com.issog.beritainapp.ui.news.NewsItemClickCallback
 import com.issog.core.domain.model.ArticleModel
+import com.issog.core.utils.ImageUtils.loadImage
+import com.issog.core.utils.orDefault
 
 class NewsAdapter: PagingDataAdapter<ArticleModel, NewsViewHolder>(DiffNewsCallback()) {
-    private var onClick: (news: ArticleModel?) -> Unit = {}
+    private var newsItemClickCallback: NewsItemClickCallback? = null
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(getItem(position), onClick)
+        holder.bind(getItem(position), newsItemClickCallback)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -22,8 +24,13 @@ class NewsAdapter: PagingDataAdapter<ArticleModel, NewsViewHolder>(DiffNewsCallb
         )
     }
 
-    fun initClick(action:(news: ArticleModel?) -> Unit) {
-        onClick = action
+    fun initCallback(callback: NewsItemClickCallback) {
+        newsItemClickCallback = callback
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        newsItemClickCallback = null
     }
 }
 
@@ -38,15 +45,32 @@ class DiffNewsCallback: DiffUtil.ItemCallback<ArticleModel>() {
 }
 
 class NewsViewHolder(private val binding: BeritainItemNewsBinding): RecyclerView.ViewHolder(binding.root) {
-    fun bind(news: ArticleModel?, onClick:(news: ArticleModel?) -> Unit) {
-        Glide.with(binding.root.context)
-            .load(news?.urlToImage)
-            .placeholder(com.issog.core.R.drawable.ic_placeholder)
-            .into(binding.ivNews)
+    fun bind(news: ArticleModel?, newsItemClickCallback: NewsItemClickCallback?) {
+        var isFavorite = news?.favorite.orDefault()
+        val imageFavorite = if (isFavorite)
+            com.issog.core.R.drawable.ic_favorite_true
+        else
+            com.issog.core.R.drawable.ic_favorite_false
 
+        binding.ivFavorite.loadImage(imageFavorite)
+        binding.ivNews.loadImage(news?.urlToImage)
         binding.tvNewsTitle.text = news?.title
         binding.tvNewsDesc.text = news?.content
         binding.tvNewsAuthor.text = news?.author
-        binding.root.setOnClickListener { onClick.invoke(news) }
+        binding.root.setOnClickListener {
+            news?.let { newsItemClickCallback?.onNewsClick(it) }
+        }
+        binding.ivFavorite.setOnClickListener {
+            news?.let {
+                if (isFavorite) {
+                    binding.ivFavorite.loadImage(com.issog.core.R.drawable.ic_favorite_false)
+                    newsItemClickCallback?.onDeleteFavorite(it)
+                } else {
+                    binding.ivFavorite.loadImage(com.issog.core.R.drawable.ic_favorite_true)
+                    newsItemClickCallback?.onSaveFavorite(it)
+                }
+            }
+            isFavorite = !isFavorite
+        }
     }
 }

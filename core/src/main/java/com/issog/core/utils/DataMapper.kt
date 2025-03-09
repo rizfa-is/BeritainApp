@@ -39,7 +39,7 @@ object DataMapper {
                 article.author.orEmpty(),
                 article.title.orEmpty(),
                 article.url.orEmpty(),
-                false
+                true
             )
         }
 
@@ -50,7 +50,6 @@ object DataMapper {
             content,
             author,
             title,
-            url,
-            favorite
+            url
         )
 }

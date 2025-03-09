@@ -18,7 +18,5 @@ data class ArticleEntity(
     @ColumnInfo(name = "title")
     var title: String? = null,
     @ColumnInfo(name = "url")
-    var url: String? = null,
-    @ColumnInfo(name = "favorite")
-    var favorite: Boolean = false
+    var url: String? = null
 )
