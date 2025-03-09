@@ -23,4 +23,10 @@
         android:label="NewsDetailFragment"
         tools:layout="@layout/fragment_news_detail"/>
 
+    <fragment
+        android:id="@+id/favoritelFragment"
+        android:name="com.issog.beritainapp.ui.favorite.FavoriteFragment"
+        android:label="FavoriteFragment"
+        tools:layout="@layout/fragment_favorite"/>
+
 </navigation>

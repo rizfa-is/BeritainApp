@@ -6,15 +6,19 @@ import com.issog.core.data.source.remote.IRemoteDataSource
 import com.issog.core.data.source.remote.RemoteSafeApiCall
 import com.issog.core.data.source.remote.network.ApiResponse
 import com.issog.core.data.source.remote.request.NewsRequest
+import com.issog.core.data.source.remote.response.TopHeadlineResponse
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.domain.model.SourceModel
 import com.issog.core.domain.repository.IBeritainRepository
 import com.issog.core.utils.DataMapper.mapArticleEntityToModel
 import com.issog.core.utils.DataMapper.mapArticleResponseToModel
 import com.issog.core.utils.DataMapper.mapSourceResponseToModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 import java.io.IOException
 
 class BeritainRepository(
@@ -44,8 +48,11 @@ class BeritainRepository(
             try {
                 remoteDataSource.getTopHeadlineByCategory(newsRequest).collectLatest { api ->
                     when(api) {
-                        is ApiResponse.Success -> trySend(Resources.Success(api.data.articles.mapArticleResponseToModel()))
                         is ApiResponse.Error -> trySend(Resources.Error(api.code, api.message))
+                        is ApiResponse.Success -> {
+                            val articles = api.data.articles.mapFilterArticleData()
+                            trySend(Resources.Success(articles))
+                        }
                         else -> trySend(Resources.NetworkError())
                     }
                 }
@@ -73,7 +80,24 @@ class BeritainRepository(
         localDataSource.insertFavoriteArticles(article)
     }
 
-    override fun updateFavoriteArticle(article: ArticleEntity,) {
-        localDataSource.updateFavoriteArticle(article)
+    override suspend fun deleteFavoriteArticle(article: ArticleEntity,) {
+        localDataSource.deleteFavoriteArticle(article)
+    }
+
+    private suspend fun List<TopHeadlineResponse.ArticlesItem>?.mapFilterArticleData(): List<ArticleModel> {
+        val favoriteNews = localDataSource.getFavoriteArticle().first().mapArticleEntityToModel()
+        val articleMapper = this.mapArticleResponseToModel().toMutableList()
+
+        withContext(Dispatchers.Default) {
+            favoriteNews.forEach { fav ->
+                articleMapper.forEachIndexed { index, articleModel ->
+                    if (fav.title == articleModel.title) {
+                        articleMapper[index].favorite = true
+                    }
+                }
+            }
+        }
+
+        return articleMapper
     }
 }

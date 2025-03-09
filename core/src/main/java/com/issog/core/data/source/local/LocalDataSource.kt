@@ -16,7 +16,7 @@ class LocalDataSource(private val articleDao: ArticleDao): ILocalDataSource {
         articleDao.insertArticle(article)
     }
 
-    override fun updateFavoriteArticle(articleEntity: ArticleEntity) {
-        articleDao.updateFavoriteArticle(articleEntity)
+    override suspend fun deleteFavoriteArticle(articleEntity: ArticleEntity) {
+        articleDao.deleteFavoriteArticle(articleEntity)
     }
 }

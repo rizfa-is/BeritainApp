@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "article_table")
 data class ArticleEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int,
+    val id: Int = 0,
     @ColumnInfo(name = "urlToImage")
     var urlToImage: String? = null,
     @ColumnInfo(name = "content")
@@ -18,7 +18,5 @@ data class ArticleEntity(
     @ColumnInfo(name = "title")
     var title: String? = null,
     @ColumnInfo(name = "url")
-    var url: String? = null,
-    @ColumnInfo(name = "favorite")
-    var favorite: Boolean = false
+    var url: String? = null
 )

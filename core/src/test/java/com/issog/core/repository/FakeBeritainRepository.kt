@@ -32,5 +32,5 @@ class FakeBeritainRepository: IBeritainRepository {
 
     override suspend fun addFavoriteArticle(article: ArticleEntity) {}
 
-    override fun updateFavoriteArticle(article: ArticleEntity) {}
+    override fun deleteFavoriteArticle(article: ArticleEntity) {}
 }

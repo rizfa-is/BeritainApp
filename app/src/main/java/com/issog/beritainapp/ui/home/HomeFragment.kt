@@ -73,6 +73,9 @@ class HomeFragment : Fragment() {
 
     private fun initViews() {
         initCategoryAdapters()
+        binding.ivFavorite.setOnClickListener {
+            findNavController().safeNavigate(R.id.favoritelFragment)
+        }
     }
 
     private fun initCategoryAdapters() {

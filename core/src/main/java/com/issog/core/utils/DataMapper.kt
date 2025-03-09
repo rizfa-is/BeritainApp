@@ -20,7 +20,6 @@ object DataMapper {
     fun List<TopHeadlineResponse.ArticlesItem>?.mapArticleResponseToModel(): List<ArticleModel> =
         this?.map { article ->
             ArticleModel(
-                indexOf(article),
                 article.urlToImage.orEmpty(),
                 article.content.orEmpty(),
                 article.author.orEmpty(),
@@ -33,24 +32,21 @@ object DataMapper {
     fun List<ArticleEntity>.mapArticleEntityToModel(): List<ArticleModel> =
         this.map { article ->
             ArticleModel(
-                article.id,
                 article.urlToImage.orEmpty(),
                 article.content.orEmpty(),
                 article.author.orEmpty(),
                 article.title.orEmpty(),
                 article.url.orEmpty(),
-                false
+                true
             )
         }
 
     fun ArticleModel.mapArticleDomainToEntity(): ArticleEntity =
         ArticleEntity(
-            id,
-            urlToImage,
-            content,
-            author,
-            title,
-            url,
-            favorite
+            urlToImage = urlToImage,
+            content = content,
+            author = author,
+            title = title,
+            url = url
         )
 }
