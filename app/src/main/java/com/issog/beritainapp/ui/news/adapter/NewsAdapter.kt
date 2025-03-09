@@ -36,7 +36,7 @@ class NewsAdapter: PagingDataAdapter<ArticleModel, NewsViewHolder>(DiffNewsCallb
 
 class DiffNewsCallback: DiffUtil.ItemCallback<ArticleModel>() {
     override fun areItemsTheSame(oldItem: ArticleModel, newItem: ArticleModel): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.title == newItem.title
     }
 
     override fun areContentsTheSame(oldItem: ArticleModel, newItem: ArticleModel): Boolean {

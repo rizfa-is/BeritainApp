@@ -16,7 +16,6 @@ object DummyData {
             (0..20).forEach { number ->
                 it.add(
                     ArticleModel(
-                        number,
                         "image $number",
                         "content $number",
                         "author $number",

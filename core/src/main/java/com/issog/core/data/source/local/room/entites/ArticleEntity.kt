@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "article_table")
 data class ArticleEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int,
+    val id: Int = 0,
     @ColumnInfo(name = "urlToImage")
     var urlToImage: String? = null,
     @ColumnInfo(name = "content")
