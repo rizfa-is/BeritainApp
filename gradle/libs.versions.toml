@@ -25,6 +25,7 @@ coreTest = "2.2.0"
 mockitoCore = "5.6.0"
 mockitoInline = "5.2.0"
 junit = "4.12"
+chucker = "4.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -56,6 +57,8 @@ test-core = { group = "androidx.arch.core", name = "core-testing", version.ref =
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+chucker-debug = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
+chucker-release = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

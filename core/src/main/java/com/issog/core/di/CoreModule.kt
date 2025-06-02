@@ -1,6 +1,7 @@
 package com.issog.core.di
 
 import androidx.room.Room
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.issog.core.data.BeritainRepository
 import com.issog.core.data.source.local.ILocalDataSource
 import com.issog.core.data.source.local.LocalDataSource
@@ -47,6 +48,8 @@ val networkModule = module {
                 requestBuilder.addHeader("Authorization", BeritainNativeLibs.beritainApiKey())
                 chain.proceed(requestBuilder.build())
             }
+            .addInterceptor(ChuckerInterceptor(get()))
+            .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .writeTimeout(120, TimeUnit.SECONDS)
             .build()
