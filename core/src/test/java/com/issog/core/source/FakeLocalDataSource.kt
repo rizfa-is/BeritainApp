@@ -18,5 +18,5 @@ class FakeLocalDataSource: ILocalDataSource {
 
     override suspend fun insertFavoriteArticles(article: ArticleEntity) {}
 
-    override fun deleteFavoriteArticle(articleEntity: ArticleEntity) {}
+    override suspend fun deleteFavoriteArticle(articleEntity: ArticleEntity) {}
 }

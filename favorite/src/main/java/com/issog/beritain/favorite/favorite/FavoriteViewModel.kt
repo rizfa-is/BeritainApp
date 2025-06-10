@@ -1,4 +1,4 @@
-package com.issog.beritainapp.ui.favorite
+package com.issog.beritain.favorite.favorite
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
