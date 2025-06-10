@@ -1,12 +1,12 @@
-package com.issog.beritainapp.ui.favorite.adapter
+package com.issog.beritain.favorite.favorite.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.issog.beritain.favorite.favorite.FavoriteClickCallback
 import com.issog.beritainapp.databinding.BeritainItemNewsBinding
-import com.issog.beritainapp.ui.favorite.FavoriteClickCallback
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.utils.ImageUtils.loadImage
 

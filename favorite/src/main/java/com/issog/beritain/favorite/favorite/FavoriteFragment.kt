@@ -1,4 +1,4 @@
-package com.issog.beritainapp.ui.favorite
+package com.issog.beritain.favorite.favorite
 
 import android.os.Bundle
 import android.text.Editable
@@ -13,9 +13,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.issog.beritain.favorite.favorite.adapter.NewsFavoriteAdapter
+import com.issog.beritain.favorite.favorite.di.favoriteModule
 import com.issog.beritainapp.R
 import com.issog.beritainapp.databinding.FragmentFavoriteBinding
-import com.issog.beritainapp.ui.favorite.adapter.NewsFavoriteAdapter
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.utils.ArchUtils.observe
 import com.issog.core.utils.NavigationUtils.safeNavigate
@@ -26,12 +27,18 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 
 class FavoriteFragment : Fragment(), FavoriteClickCallback {
     private lateinit var binding: FragmentFavoriteBinding
     private val favoriteViewModel: FavoriteViewModel by viewModel()
     private val favoriteAdapter: NewsFavoriteAdapter by lazy { NewsFavoriteAdapter() }
     private var searchJob: Job? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadKoinModules(favoriteModule)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

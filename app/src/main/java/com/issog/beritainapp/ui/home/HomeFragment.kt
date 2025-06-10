@@ -1,5 +1,7 @@
 package com.issog.beritainapp.ui.home
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.issog.beritainapp.R
 import com.issog.beritainapp.databinding.FragmentHomeBinding
 import com.issog.beritainapp.ui.home.adapter.HomeCategoryAdapter
@@ -74,7 +78,43 @@ class HomeFragment : Fragment() {
     private fun initViews() {
         initCategoryAdapters()
         binding.ivFavorite.setOnClickListener {
-            findNavController().safeNavigate(R.id.favoritelFragment)
+            installFavoriteModule()
+        }
+    }
+
+    private fun installFavoriteModule() {
+        val splitInstallManager = activity?.let { SplitInstallManagerFactory.create(it) }
+        val moduleName = "favorite"
+        if (splitInstallManager?.installedModules?.contains(moduleName) == true) {
+            moveToFavorite()
+        } else {
+            val request = SplitInstallRequest.newBuilder()
+                .addModule(moduleName)
+                .build()
+
+            splitInstallManager?.startInstall(request)
+                ?.addOnSuccessListener {
+                    Toast.makeText(activity, "Success installing module", Toast.LENGTH_SHORT).show()
+                    moveToFavorite()
+                }
+                ?.addOnFailureListener {
+                    Toast.makeText(activity, "Error installing module", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+    private fun moveToFavorite() {
+        try {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("beritain://favorite")
+                )
+            )
+        } catch (e: ClassNotFoundException) {
+            Toast.makeText(activity, "Module Favorite Not Found", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
         }
     }
 

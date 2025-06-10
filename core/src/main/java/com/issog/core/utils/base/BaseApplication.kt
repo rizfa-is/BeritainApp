@@ -1,6 +1,6 @@
 package com.issog.core.utils.base
 
-import android.app.Application
+import com.google.android.play.core.splitcompat.SplitCompatApplication
 import com.issog.core.di.databaseModule
 import com.issog.core.di.networkModule
 import com.issog.core.di.repositoryModule
@@ -11,7 +11,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.core.module.Module
 
-abstract class BaseApplication: Application() {
+abstract class BaseApplication: SplitCompatApplication() {
     override fun onCreate() {
         super.onCreate()
         startKoin {

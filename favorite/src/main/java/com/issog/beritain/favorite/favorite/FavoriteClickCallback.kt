@@ -1,4 +1,4 @@
-package com.issog.beritainapp.ui.favorite
+package com.issog.beritain.favorite.favorite
 
 import com.issog.core.domain.model.ArticleModel
 

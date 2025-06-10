@@ -79,6 +79,13 @@ dependencies {
     // paging
     api(libs.androidx.paging.runtime.ktx)
 
+    // chucker
+    debugApi(libs.chucker.debug)
+    releaseApi(libs.chucker.release)
+
+    // dynamic feature
+    api(libs.feature.delivery)
+
     testImplementation(libs.junit.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
