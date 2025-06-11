@@ -115,7 +115,7 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
     override fun onNewsClick(articleModel: ArticleModel) {
         findNavController().safeNavigate(
             R.id.newsDetailFragment,
-            bundleOf("url" to articleModel.url)
+            bundleOf("news" to articleModel)
         )
     }
 
