@@ -1,7 +1,6 @@
 package com.issog.core.data.source.local.room.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -17,6 +16,6 @@ interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertArticle(article: ArticleEntity)
 
-    @Delete
-    suspend fun deleteFavoriteArticle(articleEntity: ArticleEntity)
+    @Query("DELETE FROM article_table WHERE title = :title")
+    suspend fun deleteFavoriteArticle(title: String)
 }
