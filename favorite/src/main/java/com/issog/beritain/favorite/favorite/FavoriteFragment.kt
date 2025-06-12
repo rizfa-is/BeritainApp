@@ -1,25 +1,23 @@
 package com.issog.beritain.favorite.favorite
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.issog.beritain.favorite.favorite.adapter.NewsFavoriteAdapter
 import com.issog.beritain.favorite.favorite.di.favoriteModule
-import com.issog.beritainapp.R
 import com.issog.beritainapp.databinding.FragmentFavoriteBinding
+import com.issog.beritainapp.ui.BeritainActivity
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.utils.ArchUtils.observe
-import com.issog.core.utils.NavigationUtils.safeNavigate
 import com.issog.core.utils.UiState
 import com.issog.core.utils.gone
 import com.issog.core.utils.visible
@@ -130,9 +128,11 @@ class FavoriteFragment : Fragment(), FavoriteClickCallback {
     }
 
     override fun onNewsClick(articleModel: ArticleModel) {
-        findNavController().safeNavigate(
-            R.id.newsDetailFragment,
-            bundleOf("url" to articleModel.url)
+        startActivity(
+            Intent(
+                activity,
+                BeritainActivity::class.java
+            ).putExtra("news", articleModel)
         )
     }
 

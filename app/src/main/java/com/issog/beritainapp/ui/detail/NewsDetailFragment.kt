@@ -35,7 +35,7 @@ class NewsDetailFragment : Fragment() {
         binding.apply {
             val news = arguments?.getParcelable<ArticleModel>("news")
 
-            ivClose.setOnClickListener { findNavController().popBackStack() }
+            ivClose.setOnClickListener { actionBack() }
             btnReadFullNews.setOnClickListener {
                 findNavController().safeNavigate(
                     R.id.newsWebViewFragment,
@@ -49,6 +49,12 @@ class NewsDetailFragment : Fragment() {
                 tvAuthor.text = it.author
                 tvDesc.text = it.content
             }
+        }
+    }
+
+    private fun actionBack() {
+        if (!findNavController().popBackStack()) {
+            activity?.finish()
         }
     }
 }

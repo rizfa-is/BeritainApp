@@ -17,6 +17,6 @@ class LocalDataSource(private val articleDao: ArticleDao): ILocalDataSource {
     }
 
     override suspend fun deleteFavoriteArticle(articleEntity: ArticleEntity) {
-        articleDao.deleteFavoriteArticle(articleEntity)
+        articleDao.deleteFavoriteArticle(articleEntity.title.orEmpty())
     }
 }

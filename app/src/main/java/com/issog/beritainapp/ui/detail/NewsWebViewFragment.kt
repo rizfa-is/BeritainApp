@@ -3,7 +3,6 @@ package com.issog.beritainapp.ui.detail
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,8 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.issog.beritainapp.R
 import com.issog.beritainapp.databinding.FragmentNewsWebViewBinding
 import com.issog.core.utils.gone
 import com.issog.core.utils.visible
