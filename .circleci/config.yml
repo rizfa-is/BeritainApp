@@ -1,13 +1,13 @@
 version: 2.1
- 
+
 orbs:
-  android: circleci/android@0.2.1
- 
+  android: circleci/android@2.0.3  # Updated version
+
 jobs:
   build:
-    executor: android/android
+    executor: android/android-docker  # Updated executor
     environment:
-      JDK_VERSION: openjdk11
+      JDK_VERSION: openjdk17
     steps:
       - checkout
       - restore_cache:
