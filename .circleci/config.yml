@@ -39,7 +39,7 @@ jobs:
           name: Run Tests
           command: ./gradlew lint test
       - codecov/upload:
-          file: './coverage/clover.xml'
+          coverage_file: './coverage/clover.xml'
           token: CODECOV_TOKEN
       - store_test_results:
           path: app/build/test-results
