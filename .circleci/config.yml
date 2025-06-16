@@ -5,7 +5,9 @@ orbs:
 
 jobs:
   build:
-    executor: android/android
+    executor:
+      name: android/android-docker
+      tag: "2024.01.1"  # Specify the required tag
     steps:
       - checkout
       - restore_cache:
