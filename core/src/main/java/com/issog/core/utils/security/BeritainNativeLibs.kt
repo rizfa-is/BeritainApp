@@ -11,4 +11,8 @@ object BeritainNativeLibs {
     external fun getTopHeadlineByCategoryUrl(): String
     external fun beritainDb(): String
     external fun beritainPassphrase(): String
+    external fun beritainHostname(): String
+    external fun beritainCertPinner1(): String
+    external fun beritainCertPinner2(): String
+    external fun beritainCertPinner3(): String
 }

@@ -37,3 +37,31 @@ Java_com_issog_core_utils_security_BeritainNativeLibs_beritainPassphrase(JNIEnv 
     std::string value = "DlyQ93bfKmYZ8Zy7BGt6tKELWtGmifc4";
     return env ->NewStringUTF(value.c_str());
 }
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_issog_core_utils_security_BeritainNativeLibs_beritainHostname(JNIEnv *env, jobject thiz) {
+    std::string value = "newsapi.org";
+    return env ->NewStringUTF(value.c_str());
+}
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_issog_core_utils_security_BeritainNativeLibs_beritainCertPinner1(JNIEnv *env,
+                                                                          jobject thiz) {
+    std::string value = "sha256/3k0pPb1Yzj4mQCfJt15zgP7MH7fBOtqfl6fZlHoNuLk";
+    return env ->NewStringUTF(value.c_str());
+}
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_issog_core_utils_security_BeritainNativeLibs_beritainCertPinner2(JNIEnv *env,
+                                                                          jobject thiz) {
+    std::string value = "sha256/kIdp6NNEd8wsugYyyIYFsi1ylMCED3hZbSR8ZFsa/A4";
+    return env ->NewStringUTF(value.c_str());
+}
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_issog_core_utils_security_BeritainNativeLibs_beritainCertPinner3(JNIEnv *env,
+                                                                          jobject thiz) {
+    std::string value = "sha256/mEflZT5enoR1FuXLgYYGqnVEoZvmf9c2bVBpiOjYQ0c";
+    return env ->NewStringUTF(value.c_str());
+}
