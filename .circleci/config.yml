@@ -7,7 +7,7 @@ jobs:
   build:
     executor: android/android
     environment:
-      JDK_VERSION: openjdk17
+      JDK_VERSION: openjdk11
     steps:
       - checkout
       - restore_cache:
