@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "codecov": "^3.8.2"
+  },
+  "jest": {
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
+  }
+}

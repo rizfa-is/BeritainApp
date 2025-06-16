@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.0.3
+  codecov: codecov/codecov@5
 
 jobs:
   build:
@@ -37,6 +38,9 @@ jobs:
       - run:
           name: Run Tests
           command: ./gradlew lint test
+      - codecov/upload:
+          file: './coverage/clover.xml'
+          token: 868e0b6b-373f-4c9f-93ee-050672c6b0c5
       - store_test_results:
           path: app/build/test-results
       - store_artifacts:  
