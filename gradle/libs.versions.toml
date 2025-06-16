@@ -27,6 +27,7 @@ mockitoInline = "5.2.0"
 junit = "4.12"
 chucker = "4.1.0"
 featureDelivery = "2.1.0"
+leakCanary = "2.12"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -61,6 +62,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 chucker-debug = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
 chucker-release = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
 feature-delivery = { module = "com.google.android.play:feature-delivery", version.ref = "featureDelivery" }
+leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakCanary" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -86,6 +86,9 @@ dependencies {
     // dynamic feature
     api(libs.feature.delivery)
 
+    // leakcanary
+    debugApi(libs.leakcanary)
+
     testImplementation(libs.junit.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
