@@ -10,6 +10,11 @@ jobs:
       tag: "2024.01.1"  # Specify the required tag
     steps:
       - checkout
+      - run:
+          name: Install Ninja
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y ninja-build
       - restore_cache:
           key: android-orb-v1-
       - run:
