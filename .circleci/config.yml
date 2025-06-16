@@ -5,7 +5,7 @@ orbs:
 
 jobs:
   build:
-    executor: android/android-docker  # Updated executor
+    executor: android/android  # Updated executor
     environment:
       JDK_VERSION: openjdk17
     steps:
