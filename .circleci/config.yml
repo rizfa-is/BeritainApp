@@ -8,6 +8,8 @@ jobs:
     executor: android/android
     steps:
       - checkout
+      - setup_java:
+          java_version: 'openjdk-17'
       - restore_cache:
           key: android-orb-v1-
       - run:
