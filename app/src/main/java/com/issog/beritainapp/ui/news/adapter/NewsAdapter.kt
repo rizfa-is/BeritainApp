@@ -9,6 +9,7 @@ import com.issog.beritainapp.databinding.BeritainItemNewsBinding
 import com.issog.beritainapp.ui.news.NewsItemClickCallback
 import com.issog.core.domain.model.ArticleModel
 import com.issog.core.utils.ImageUtils.loadImage
+import com.issog.core.utils.orDefault
 
 class NewsAdapter : PagingDataAdapter<ArticleModel, NewsViewHolder>(DiffNewsCallback()) {
     private var newsItemClickCallback: NewsItemClickCallback? = null
