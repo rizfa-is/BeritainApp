@@ -38,13 +38,13 @@ jobs:
           name: Run Ktlint Check
           command: ./gradlew ktlintCheck
       - run:
-          name: Run Tests
-          command: ./gradlew lint test
-      - store_test_results:
-          path: app/build/test-results
-      - run:
           name: Run Build
           command: ./gradlew --stacktrace build
+      - run:
+          name: Run Tests
+          command: ./gradlew test
+      - store_test_results:
+          path: app/build/test-results
       - store_artifacts:
           path: app/build/reports
           destination: reports
