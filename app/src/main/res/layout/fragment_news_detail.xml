@@ -13,6 +13,7 @@
         android:layout_height="400dp"
         android:src="@color/black"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/image_news"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,6 +25,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_back"
+        android:contentDescription="@string/image_close"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:src="@drawable/bg_rounded_top"
+        android:contentDescription="@string/background_image_news"
         app:layout_constraintBottom_toBottomOf="@+id/imgNews" />
 
     <TextView
@@ -68,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
-        android:text="Read Full News"
+        android:text="@string/read_full_news"
         android:backgroundTint="@color/main_theme_red"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent" />

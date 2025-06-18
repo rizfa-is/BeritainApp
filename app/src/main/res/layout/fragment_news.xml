@@ -14,7 +14,7 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/beritain_bg_search"
-        android:hint="Search hot news"
+        android:hint="@string/search_hot_news"
         android:fontFamily="@font/poppins_regular"
         android:drawableStart="@android:drawable/ic_menu_search"
         app:layout_constraintTop_toTopOf="parent" />

@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
@@ -16,6 +17,7 @@
             android:layout_height="150dp"
             android:src="@drawable/ic_favorite_mark"
             android:scaleType="centerCrop"
+            android:contentDescription="@string/image_news"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,11 +31,11 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:fontFamily="@font/poppins_bold"
-            android:text="Live updates: EU leaders hold emergency Ukraine talks after Trump suspends aid - The Associated Press"
             app:layout_constraintBottom_toTopOf="@id/tv_news_desc"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_news"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Live updates: EU leaders hold emergency Ukraine talks after Trump suspends aid - The Associated Press"/>
 
         <TextView
             android:id="@+id/tv_news_desc"
@@ -44,11 +46,11 @@
             android:maxLines="3"
             android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
-            android:text="The EUs 27 leaders have finished a working lunch with Ukrainian President Volodymyr Zelenskyy. Meal-time discussions are unscripted, and the heads of state and government can freely speak, often in E… [+847 chars]"
             app:layout_constraintBottom_toTopOf="@+id/tv_news_author"
             app:layout_constraintTop_toBottomOf="@+id/tv_news_title"
             app:layout_constraintStart_toEndOf="@id/iv_news"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="The EUs 27 leaders have finished a working lunch with Ukrainian President Volodymyr Zelenskyy. Meal-time discussions are unscripted, and the heads of state and government can freely speak, often in E… [+847 chars]"/>
 
         <TextView
             android:id="@+id/tv_news_author"
@@ -62,11 +64,11 @@
             android:fontFamily="@font/poppins_regular"
             android:textColor="@color/black"
             android:textStyle="italic"
-            android:text="The Associated Press"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_news_desc"
             app:layout_constraintStart_toEndOf="@id/iv_news"
-            app:layout_constraintEnd_toStartOf="@+id/iv_favorite"/>
+            app:layout_constraintEnd_toStartOf="@+id/iv_favorite"
+            tools:text="The Associated Press"/>
 
         <ImageView
             android:id="@+id/iv_favorite"
@@ -75,6 +77,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:src="@drawable/ic_favorite_false"
+            android:contentDescription="@string/image_favorite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
