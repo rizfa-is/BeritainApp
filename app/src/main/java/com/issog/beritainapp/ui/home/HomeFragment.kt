@@ -112,8 +112,6 @@ class HomeFragment : Fragment() {
                 )
             )
         } catch (e: ClassNotFoundException) {
-            Toast.makeText(activity, "Module Favorite Not Found", Toast.LENGTH_SHORT).show()
-        } catch (e: Exception) {
             Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -141,8 +139,12 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvSource.apply {
-            layoutManager = GridLayoutManager(activity, 3)
+            layoutManager = GridLayoutManager(activity, GRID_SPAN)
             adapter = sourceAdapter
         }
+    }
+
+    companion object {
+        private const val GRID_SPAN = 3
     }
 }

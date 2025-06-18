@@ -56,7 +56,7 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
 
             etSearch.addTextChangedListener { text: Editable? ->
                 val txtSearch = text.toString()
-                if (txtSearch.length > 6 || txtSearch.isEmpty()) {
+                if (txtSearch.length > MINIMUM_SEARCH_LENGTH || txtSearch.isEmpty()) {
                     debounceSearchAction {
                         newsViewModel.getNews(
                             category?.category.orEmpty(),
@@ -77,7 +77,7 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
                 binding.pbNews.visible()
                 binding.rvNews.gone()
 
-                delay(500)
+                delay(DELAY_GET_NEWS)
                 binding.pbNews.gone()
                 binding.rvNews.visible()
                 result?.let { newsAdapter.submitData(it) }
@@ -101,7 +101,7 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
         searchJob?.cancel()
         searchJob = null
         searchJob = lifecycleScope.launch {
-            delay(1000)
+            delay(DELAY_DEBOUNCE_SEARCH)
             action.invoke()
         }
     }
@@ -125,5 +125,11 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
 
     override fun onDeleteFavorite(articleModel: ArticleModel) {
         newsViewModel.addFavorite(articleModel)
+    }
+
+    companion object {
+        private const val DELAY_GET_NEWS = 500L
+        private const val DELAY_DEBOUNCE_SEARCH = 1000L
+        private const val MINIMUM_SEARCH_LENGTH = 6
     }
 }

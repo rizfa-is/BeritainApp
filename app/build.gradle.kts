@@ -1,7 +1,10 @@
+import io.gitlab.arturbosch.detekt.Detekt
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.detekt)
 }
 
 android {
@@ -20,11 +23,12 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -38,6 +42,20 @@ android {
         viewBinding = true
     }
     dynamicFeatures += setOf(":favorite")
+
+    detekt {
+        buildUponDefaultConfig = true // preconfigure defaults
+        allRules = false // activate all available (even unstable) rules.
+        config.setFrom("$projectDir/config/detekt/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+        baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
+    }
+    tasks.withType<Detekt>().configureEach {
+        reports {
+            txt.required.set(true) // or false to disable the report
+            html.required.set(true) // or false to disable the report
+            xml.required.set(true) // or false to disable the report
+        }
+    }
 }
 
 dependencies {

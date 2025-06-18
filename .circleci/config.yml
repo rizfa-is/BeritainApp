@@ -29,6 +29,9 @@ jobs:
             - ~/.android/build-cache
             - ~/.android/cache
       - run:
+          name: Run Detekt
+          command: ./gradlew detekt
+      - run:
           name: Run Build
           command: ./gradlew build
       - store_artifacts: 
