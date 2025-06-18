@@ -7,11 +7,13 @@ import com.issog.core.domain.usecase.BeritainUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val useCaseModule = module {
-    single<BeritainUseCase> { BeritainInteractor(get()) }
-}
+val useCaseModule =
+    module {
+        single<BeritainUseCase> { BeritainInteractor(get()) }
+    }
 
-val viewModelModule = module {
-    viewModel { HomeViewModel(get()) }
-    viewModel { NewsViewModel(get()) }
-}
+val viewModelModule =
+    module {
+        viewModel { HomeViewModel(get()) }
+        viewModel { NewsViewModel(get()) }
+    }

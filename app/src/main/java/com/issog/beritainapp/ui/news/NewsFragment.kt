@@ -36,14 +36,18 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
     private var searchJob: Job? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentNewsBinding.inflate(inflater)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initNewsList()
@@ -61,7 +65,7 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
                         newsViewModel.getNews(
                             category?.category.orEmpty(),
                             source?.id.orEmpty(),
-                            txtSearch
+                            txtSearch,
                         ).handleGetNews()
                     }
                 }
@@ -89,21 +93,24 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
         newsAdapter.initCallback(this)
         binding.rvNews.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = newsAdapter.withLoadStateFooter(
-                footer = NewsLoadingStateAdapter().also {
-                    it.initClick { newsAdapter.retry() }
-                }
-            )
+            adapter =
+                newsAdapter.withLoadStateFooter(
+                    footer =
+                        NewsLoadingStateAdapter().also {
+                            it.initClick { newsAdapter.retry() }
+                        },
+                )
         }
     }
 
     private fun debounceSearchAction(action: () -> Unit) {
         searchJob?.cancel()
         searchJob = null
-        searchJob = lifecycleScope.launch {
-            delay(DELAY_DEBOUNCE_SEARCH)
-            action.invoke()
-        }
+        searchJob =
+            lifecycleScope.launch {
+                delay(DELAY_DEBOUNCE_SEARCH)
+                action.invoke()
+            }
     }
 
     override fun onDestroy() {
@@ -115,7 +122,7 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
     override fun onNewsClick(articleModel: ArticleModel) {
         findNavController().safeNavigate(
             R.id.newsDetailFragment,
-            bundleOf("news" to articleModel)
+            bundleOf("news" to articleModel),
         )
     }
 

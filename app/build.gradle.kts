@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.ktlint)
 }
 
 android {
@@ -26,7 +27,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
             signingConfig = signingConfigs.getByName("debug")
         }
@@ -46,7 +47,9 @@ android {
     detekt {
         buildUponDefaultConfig = true // preconfigure defaults
         allRules = false // activate all available (even unstable) rules.
-        config.setFrom("$projectDir/config/detekt/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+        config.setFrom(
+            "$projectDir/config/detekt/detekt.yml",
+        ) // point to your custom config defining rules to run, overwriting default behavior
         baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
     }
     tasks.withType<Detekt>().configureEach {
@@ -55,6 +58,24 @@ android {
             html.required.set(true) // or false to disable the report
             xml.required.set(true) // or false to disable the report
         }
+    }
+    ktlint {
+        debug.set(true)
+        verbose.set(true)
+        android.set(false)
+        outputToConsole.set(true)
+        outputColorName.set("RED")
+        filter {
+            enableExperimentalRules.set(true)
+            exclude { projectDir.toURI().relativize(it.file.toURI()).path.contains("/generated/") }
+            include("**/kotlin/**")
+        }
+    }
+    tasks.register("copyGitHooks", Copy::class.java) {
+        description = "Copies the git hooks from /git-hooks to the .git folder."
+        group = "git hooks"
+        from("$rootDir/scripts/pre-merge-commit")
+        into("$rootDir/.git/hooks/")
     }
 }
 
@@ -66,17 +87,17 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //mock looper in viewmodel
+    // mock looper in viewmodel
     testImplementation(libs.test.core)
 
-    //mockito
+    // mockito
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.inline)
 
     // kotlin coroutines test
     testImplementation(libs.coroutine.test)
 
-    //kotlin flow test
+    // kotlin flow test
     testImplementation(libs.turbine)
     testImplementation(libs.truth)
 }

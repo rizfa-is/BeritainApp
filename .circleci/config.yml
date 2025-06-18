@@ -32,16 +32,22 @@ jobs:
           name: Run Detekt
           command: ./gradlew detekt
       - run:
-          name: Run Build
-          command: ./gradlew build
-      - store_artifacts: 
-          path: app/build/reports
-          destination: reports
+          name: Run Ktlint Format
+          command: ./gradlew ktlintFormat
+      - run:
+          name: Run Ktlint Check
+          command: ./gradlew ktlintCheck
       - run:
           name: Run Tests
           command: ./gradlew lint test
       - store_test_results:
           path: app/build/test-results
+      - run:
+          name: Run Build
+          command: ./gradlew --no-daemon --stacktrace build
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
       - store_artifacts:  
           path: app/build/outputs/apk/debug/
           destination: artifact-file

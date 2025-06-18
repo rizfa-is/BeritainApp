@@ -18,14 +18,18 @@ class NewsDetailFragment : Fragment() {
     private lateinit var binding: FragmentNewsDetailBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentNewsDetailBinding.inflate(inflater)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
     }
@@ -39,7 +43,7 @@ class NewsDetailFragment : Fragment() {
             btnReadFullNews.setOnClickListener {
                 findNavController().safeNavigate(
                     R.id.newsWebViewFragment,
-                    bundleOf("url" to news?.url)
+                    bundleOf("url" to news?.url),
                 )
             }
 
