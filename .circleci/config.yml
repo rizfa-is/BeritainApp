@@ -29,6 +29,9 @@ jobs:
             - ~/.android/build-cache
             - ~/.android/cache
       - run:
+          name: Run Build Release
+          command: ./gradlew --stacktrace buildRelease
+      - run:
           name: Run Detekt
           command: ./gradlew detekt
       - run:
@@ -37,9 +40,6 @@ jobs:
       - run:
           name: Run Ktlint Check
           command: ./gradlew ktlintCheck
-      - run:
-          name: Run Build
-          command: ./gradlew --stacktrace build
       - run:
           name: Run Tests
           command: ./gradlew test
