@@ -74,7 +74,7 @@ android {
     tasks.register("copyGitHooks", Copy::class.java) {
         description = "Copies the git hooks from /git-hooks to the .git folder."
         group = "git hooks"
-        from("$rootDir/scripts/pre-merge-commit")
+        from("$rootDir/scripts/pre-commit")
         into("$rootDir/.git/hooks/")
     }
 }
