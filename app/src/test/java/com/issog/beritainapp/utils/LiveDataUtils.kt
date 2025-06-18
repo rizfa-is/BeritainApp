@@ -12,17 +12,18 @@ object LiveDataUtils {
     fun <T> LiveData<T>.getOrAwaitValue(
         time: Long = 2,
         timeUnit: TimeUnit = TimeUnit.SECONDS,
-        afterObserve: () -> Unit = {}
+        afterObserve: () -> Unit = {},
     ): T {
         var data: T? = null
         val latch = CountDownLatch(1)
-        val observer = object : Observer<T> {
-            override fun onChanged(o: T) {
-                data = o
-                latch.countDown()
-                this@getOrAwaitValue.removeObserver(this)
+        val observer =
+            object : Observer<T> {
+                override fun onChanged(o: T) {
+                    data = o
+                    latch.countDown()
+                    this@getOrAwaitValue.removeObserver(this)
+                }
             }
-        }
         this.observeForever(observer)
         try {
             afterObserve.invoke()
@@ -36,8 +37,8 @@ object LiveDataUtils {
         return data as T
     }
 
-    //observe Livedata sampai block selesai dieksekusi
-    suspend fun <T> LiveData<T>.observeForTesting(block: suspend  () -> Unit) {
+    // observe Livedata sampai block selesai dieksekusi
+    suspend fun <T> LiveData<T>.observeForTesting(block: suspend () -> Unit) {
         val observer = Observer<T> { }
         try {
             observeForever(observer)

@@ -31,11 +31,12 @@ class BeritainActivity : AppCompatActivity() {
         val news = intent.extras?.getParcelable<ArticleModel>("news")
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment) as NavHostFragment
-        val startDestination = news?.let {
-            R.id.newsDetailFragment
-        } ?: run {
-            R.id.homeFragment
-        }
+        val startDestination =
+            news?.let {
+                R.id.newsDetailFragment
+            } ?: run {
+                R.id.homeFragment
+            }
 
         val navController = navHostFragment.navController
         val navGraph = navController.navInflater.inflate(R.navigation.nav_graph_home)
