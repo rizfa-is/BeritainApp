@@ -28,6 +28,7 @@ junit = "4.12"
 chucker = "4.1.0"
 featureDelivery = "2.1.0"
 leakCanary = "2.12"
+detekt = "1.23.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -71,3 +72,4 @@ kotlin-parcelize = { id = "kotlin-parcelize" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.27" }
 android-dynamic-feature = { id = "com.android.dynamic-feature", version.ref = "agp" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
