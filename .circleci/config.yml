@@ -30,7 +30,7 @@ jobs:
             - ~/.android/cache
       - run:
           name: Run Build Release
-          command: ./gradlew --stacktrace buildRelease
+          command: ./gradlew --stacktrace assembleRelease
       - run:
           name: Run Detekt
           command: ./gradlew detekt
