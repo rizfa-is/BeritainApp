@@ -11,16 +11,22 @@ import com.issog.core.domain.model.ArticleModel
 import com.issog.core.utils.ImageUtils.loadImage
 import com.issog.core.utils.orDefault
 
-class NewsAdapter: PagingDataAdapter<ArticleModel, NewsViewHolder>(DiffNewsCallback()) {
+class NewsAdapter : PagingDataAdapter<ArticleModel, NewsViewHolder>(DiffNewsCallback()) {
     private var newsItemClickCallback: NewsItemClickCallback? = null
 
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: NewsViewHolder,
+        position: Int,
+    ) {
         holder.bind(getItem(position), newsItemClickCallback)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): NewsViewHolder {
         return NewsViewHolder(
-            BeritainItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            BeritainItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }
 
@@ -34,23 +40,34 @@ class NewsAdapter: PagingDataAdapter<ArticleModel, NewsViewHolder>(DiffNewsCallb
     }
 }
 
-class DiffNewsCallback: DiffUtil.ItemCallback<ArticleModel>() {
-    override fun areItemsTheSame(oldItem: ArticleModel, newItem: ArticleModel): Boolean {
+class DiffNewsCallback : DiffUtil.ItemCallback<ArticleModel>() {
+    override fun areItemsTheSame(
+        oldItem: ArticleModel,
+        newItem: ArticleModel,
+    ): Boolean {
         return oldItem.title == newItem.title
     }
 
-    override fun areContentsTheSame(oldItem: ArticleModel, newItem: ArticleModel): Boolean {
+    override fun areContentsTheSame(
+        oldItem: ArticleModel,
+        newItem: ArticleModel,
+    ): Boolean {
         return oldItem == newItem
     }
 }
 
-class NewsViewHolder(private val binding: BeritainItemNewsBinding): RecyclerView.ViewHolder(binding.root) {
-    fun bind(news: ArticleModel?, newsItemClickCallback: NewsItemClickCallback?) {
+class NewsViewHolder(private val binding: BeritainItemNewsBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(
+        news: ArticleModel?,
+        newsItemClickCallback: NewsItemClickCallback?,
+    ) {
         var isFavorite = news?.favorite.orDefault()
-        val imageFavorite = if (isFavorite)
-            com.issog.core.R.drawable.ic_favorite_true
-        else
-            com.issog.core.R.drawable.ic_favorite_false
+        val imageFavorite =
+            if (isFavorite) {
+                com.issog.core.R.drawable.ic_favorite_true
+            } else {
+                com.issog.core.R.drawable.ic_favorite_false
+            }
 
         binding.ivFavorite.loadImage(imageFavorite)
         binding.ivNews.loadImage(news?.urlToImage)

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.issog.beritain.favorite.favorite.FavoriteFragment">
+    android:layout_height="match_parent" >
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_search"
@@ -14,7 +13,7 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/beritain_bg_search"
-        android:hint="Search favorite news"
+        android:hint="@string/search_favorite_news"
         android:fontFamily="@font/poppins_regular"
         android:drawableStart="@android:drawable/ic_menu_search"
         app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +51,7 @@
         android:layout_marginTop="12dp"
         android:indeterminateTint="@color/main_theme_red"
         android:visibility="gone"
-        android:text="No Favorite Data"
+        android:text="@string/no_favorite_data"
         android:fontFamily="@font/poppins_bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

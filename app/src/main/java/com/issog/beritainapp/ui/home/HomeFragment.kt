@@ -32,14 +32,18 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         fetchData()
@@ -50,7 +54,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleGetSourceList(result: UiState<List<SourceModel>>?) {
-        when(result) {
+        when (result) {
             is UiState.Loading -> {
                 binding.pbSource.visible()
                 binding.rvSource.gone()
@@ -88,9 +92,10 @@ class HomeFragment : Fragment() {
         if (splitInstallManager?.installedModules?.contains(moduleName) == true) {
             moveToFavorite()
         } else {
-            val request = SplitInstallRequest.newBuilder()
-                .addModule(moduleName)
-                .build()
+            val request =
+                SplitInstallRequest.newBuilder()
+                    .addModule(moduleName)
+                    .build()
 
             splitInstallManager?.startInstall(request)
                 ?.addOnSuccessListener {
@@ -108,12 +113,10 @@ class HomeFragment : Fragment() {
             startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("beritain://favorite")
-                )
+                    Uri.parse("beritain://favorite"),
+                ),
             )
         } catch (e: ClassNotFoundException) {
-            Toast.makeText(activity, "Module Favorite Not Found", Toast.LENGTH_SHORT).show()
-        } catch (e: Exception) {
             Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -132,7 +135,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun initSourceAdapters(data: List<SourceModel>) {
         val sourceAdapter = HomeSourceAdapter()
         sourceAdapter.initData(data)
@@ -141,8 +143,12 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvSource.apply {
-            layoutManager = GridLayoutManager(activity, 3)
+            layoutManager = GridLayoutManager(activity, GRID_SPAN)
             adapter = sourceAdapter
         }
+    }
+
+    companion object {
+        private const val GRID_SPAN = 3
     }
 }

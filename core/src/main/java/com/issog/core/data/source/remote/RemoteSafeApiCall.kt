@@ -19,7 +19,7 @@ abstract class RemoteSafeApiCall {
                 } else {
                     emit(ApiResponse.Error(response.code(), response.message()))
                 }
-            } catch (e: IOException) {
+            } catch (_: IOException) {
                 emit(ApiResponse.NetworkError)
             } catch (e: Exception) {
                 emit(ApiResponse.Error(message = e.message.toString()))

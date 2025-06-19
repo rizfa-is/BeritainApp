@@ -8,15 +8,21 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.issog.beritainapp.databinding.BeritainPagingLoadingBinding
 
-class NewsLoadingStateAdapter:  LoadStateAdapter<NewsLoadingStateAdapter.LoadingStateViewHolder>() {
+class NewsLoadingStateAdapter : LoadStateAdapter<NewsLoadingStateAdapter.LoadingStateViewHolder>() {
     private var onClick: () -> Unit = {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadingStateViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        loadState: LoadState,
+    ): LoadingStateViewHolder {
         val binding = BeritainPagingLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LoadingStateViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: LoadingStateViewHolder, loadState: LoadState) {
+    override fun onBindViewHolder(
+        holder: LoadingStateViewHolder,
+        loadState: LoadState,
+    ) {
         holder.bind(loadState)
     }
 
@@ -36,7 +42,7 @@ class NewsLoadingStateAdapter:  LoadStateAdapter<NewsLoadingStateAdapter.Loading
         }
     }
 
-    fun initClick(action:() -> Unit) {
+    fun initClick(action: () -> Unit) {
         onClick = action
     }
 }

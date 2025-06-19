@@ -21,30 +21,36 @@ class NewsWebViewFragment : Fragment() {
     private lateinit var mWebView: WebView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentNewsWebViewBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         handleBackPressed()
     }
 
     private fun handleBackPressed() {
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (mWebView.canGoBack()) {
-                    mWebView.goBack()
-                } else {
-                    findNavController().popBackStack()
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (mWebView.canGoBack()) {
+                        mWebView.goBack()
+                    } else {
+                        findNavController().popBackStack()
+                    }
                 }
-            }
-        })
+            },
+        )
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -55,17 +61,26 @@ class NewsWebViewFragment : Fragment() {
             val url = arguments?.getString("url")
             mWebView = webview
             mWebView.settings.javaScriptEnabled = true
-            mWebView.webViewClient = object : WebViewClient() {
-                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                    super.onPageStarted(view, url, favicon)
-                    binding.pbWebview.visible()
+            mWebView.webViewClient =
+                object : WebViewClient() {
+                    override fun onPageStarted(
+                        view: WebView?,
+                        url: String?,
+                        favicon: Bitmap?,
+                    ) {
+                        super.onPageStarted(view, url, favicon)
+                        binding.pbWebview.visible()
+                    }
+
+                    override fun onPageFinished(
+                        view: WebView?,
+                        url: String?,
+                    ) {
+                        super.onPageFinished(view, url)
+                        binding.tvUrl.text = view?.url?.substringAfter("://")?.split('/')?.get(0).orEmpty()
+                        binding.pbWebview.gone()
+                    }
                 }
-                override fun onPageFinished(view: WebView?, url: String?) {
-                    super.onPageFinished(view, url)
-                    binding.tvUrl.text = view?.url?.substringAfter("://")?.split('/')?.get(0).orEmpty()
-                    binding.pbWebview.gone()
-                }
-            }
             mWebView.webChromeClient = WebChromeClient()
             mWebView.loadUrl(url.orEmpty())
         }

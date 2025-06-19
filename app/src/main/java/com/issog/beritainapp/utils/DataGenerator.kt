@@ -13,6 +13,6 @@ object DataGenerator {
             ItemCategory(BeritainCategory.HEALTH.value.uppercase(), RCore.drawable.ic_health),
             ItemCategory(BeritainCategory.SCIENCE.value.uppercase(), RCore.drawable.ic_science),
             ItemCategory(BeritainCategory.SPORTS.value.uppercase(), RCore.drawable.ic_sport),
-            ItemCategory(BeritainCategory.TECHNOLOGY.value.uppercase(), RCore.drawable.ic_technology)
+            ItemCategory(BeritainCategory.TECHNOLOGY.value.uppercase(), RCore.drawable.ic_technology),
         )
 }

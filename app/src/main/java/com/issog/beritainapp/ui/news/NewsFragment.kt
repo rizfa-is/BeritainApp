@@ -36,14 +36,18 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
     private var searchJob: Job? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentNewsBinding.inflate(inflater)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initNewsList()
@@ -56,12 +60,12 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
 
             etSearch.addTextChangedListener { text: Editable? ->
                 val txtSearch = text.toString()
-                if (txtSearch.length > 6 || txtSearch.isEmpty()) {
+                if (txtSearch.length > MINIMUM_SEARCH_LENGTH || txtSearch.isEmpty()) {
                     debounceSearchAction {
                         newsViewModel.getNews(
                             category?.category.orEmpty(),
                             source?.id.orEmpty(),
-                            txtSearch
+                            txtSearch,
                         ).handleGetNews()
                     }
                 }
@@ -77,7 +81,7 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
                 binding.pbNews.visible()
                 binding.rvNews.gone()
 
-                delay(500)
+                delay(DELAY_GET_NEWS)
                 binding.pbNews.gone()
                 binding.rvNews.visible()
                 result?.let { newsAdapter.submitData(it) }
@@ -89,21 +93,24 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
         newsAdapter.initCallback(this)
         binding.rvNews.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = newsAdapter.withLoadStateFooter(
-                footer = NewsLoadingStateAdapter().also {
-                    it.initClick { newsAdapter.retry() }
-                }
-            )
+            adapter =
+                newsAdapter.withLoadStateFooter(
+                    footer =
+                        NewsLoadingStateAdapter().also {
+                            it.initClick { newsAdapter.retry() }
+                        },
+                )
         }
     }
 
     private fun debounceSearchAction(action: () -> Unit) {
         searchJob?.cancel()
         searchJob = null
-        searchJob = lifecycleScope.launch {
-            delay(1000)
-            action.invoke()
-        }
+        searchJob =
+            lifecycleScope.launch {
+                delay(DELAY_DEBOUNCE_SEARCH)
+                action.invoke()
+            }
     }
 
     override fun onDestroy() {
@@ -115,7 +122,7 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
     override fun onNewsClick(articleModel: ArticleModel) {
         findNavController().safeNavigate(
             R.id.newsDetailFragment,
-            bundleOf("news" to articleModel)
+            bundleOf("news" to articleModel),
         )
     }
 
@@ -125,5 +132,11 @@ class NewsFragment : Fragment(), NewsItemClickCallback {
 
     override fun onDeleteFavorite(articleModel: ArticleModel) {
         newsViewModel.addFavorite(articleModel)
+    }
+
+    companion object {
+        private const val DELAY_GET_NEWS = 500L
+        private const val DELAY_DEBOUNCE_SEARCH = 1000L
+        private const val MINIMUM_SEARCH_LENGTH = 6
     }
 }

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingBottom="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -11,6 +12,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/beritain_bg_item_source"
+        android:contentDescription="@string/image_source"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,11 +27,11 @@
         android:gravity="center"
         android:maxLines="2"
         android:ellipsize="end"
-        android:text="Business Business Business"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/bg_image"
         app:layout_constraintEnd_toEndOf="@id/bg_image"
         app:layout_constraintStart_toStartOf="@id/bg_image"
-        app:layout_constraintTop_toTopOf="@id/bg_image" />
+        app:layout_constraintTop_toTopOf="@id/bg_image"
+        tools:text="Business Business Business" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

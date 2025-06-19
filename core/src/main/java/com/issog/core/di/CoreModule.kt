@@ -13,6 +13,7 @@ import com.issog.core.domain.repository.IBeritainRepository
 import com.issog.core.utils.security.BeritainNativeLibs
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -41,6 +42,12 @@ val databaseModule = module {
 
 val networkModule = module {
     single {
+        val certificatePinner = CertificatePinner.Builder()
+            .add(BeritainNativeLibs.beritainHostname(), BeritainNativeLibs.beritainCertPinner1())
+            .add(BeritainNativeLibs.beritainHostname(), BeritainNativeLibs.beritainCertPinner2())
+            .add(BeritainNativeLibs.beritainHostname(), BeritainNativeLibs.beritainCertPinner3())
+            .build()
+
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor { chain ->
@@ -49,6 +56,7 @@ val networkModule = module {
                 chain.proceed(requestBuilder.build())
             }
             .addInterceptor(ChuckerInterceptor(get()))
+            .certificatePinner(certificatePinner)
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .writeTimeout(120, TimeUnit.SECONDS)

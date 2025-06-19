@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="background_category">Background Category</string>
+    <string name="image_category">Image Category</string>
+    <string name="image_news">Image news</string>
+    <string name="image_favorite">Image Favorite</string>
+    <string name="image_source">Image Source</string>
+    <string name="retry">Retry</string>
+    <string name="timeout">Timeout</string>
+    <string name="search_favorite_news">Search favorite news</string>
+    <string name="no_favorite_data">No Favorite Data</string>
+    <string name="top_news">TOP NEWS</string>
+    <string name="worldwide">WORLDWIDE</string>
+    <string name="browse_by_category">Browse by Category</string>
+    <string name="browse_by_source">Browse by Source</string>
+    <string name="search_hot_news">Search hot news</string>
+    <string name="image_close">Image Close</string>
+    <string name="background_image_news">Background Image News</string>
+    <string name="read_full_news">Read Full News</string>
+    <string name="beritain">BeritaIn</string>
+    <string name="dash">-</string>
+</resources>
