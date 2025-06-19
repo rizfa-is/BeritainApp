@@ -35,7 +35,7 @@ class BeritainRepository(
                         else -> trySend(Resources.NetworkError())
                     }
                 }
-            } catch (e: IOException) {
+            } catch (_: IOException) {
                 trySend(Resources.NetworkError())
             } catch (e: Exception) {
                 trySend(Resources.Error(0, e.message.toString()))
@@ -56,7 +56,7 @@ class BeritainRepository(
                         else -> trySend(Resources.NetworkError())
                     }
                 }
-            } catch (e: IOException) {
+            } catch (_: IOException) {
                 trySend(Resources.NetworkError())
             } catch (e: Exception) {
                 trySend(Resources.Error(0, e.message.toString()))
@@ -80,7 +80,7 @@ class BeritainRepository(
         localDataSource.insertFavoriteArticles(article)
     }
 
-    override suspend fun deleteFavoriteArticle(article: ArticleEntity,) {
+    override suspend fun deleteFavoriteArticle(article: ArticleEntity) {
         localDataSource.deleteFavoriteArticle(article)
     }
 

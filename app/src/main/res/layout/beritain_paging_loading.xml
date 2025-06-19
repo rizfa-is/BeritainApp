@@ -15,7 +15,7 @@
         android:textAlignment="center"
         android:textColor="@color/main_theme_red"
         android:fontFamily="@font/poppins_bold"
-        tools:text="Timeout" />
+        android:text="@string/timeout" />
 
     <ProgressBar
         android:id="@+id/pb_paging"
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Retry"
+        android:text="@string/retry"
         android:textSize="16sp"
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_regular"
