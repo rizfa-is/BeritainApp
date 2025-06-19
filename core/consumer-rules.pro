@@ -31,7 +31,7 @@
 }
 
 # Keep all classes in the response package
--keep class com.issog.core.data.source.remote.response.** { *; }
+#-keep class com.issog.core.data.source.remote.response.** { *; }
 
 
 ##---------------Begin: proguard configuration for Retrofit ----------
