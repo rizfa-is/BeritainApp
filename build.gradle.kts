@@ -4,8 +4,8 @@ buildscript {
     project.extra.set("minSdk", 24)
     project.extra.set("targetSdk", 35)
     project.extra.set("compileSdk", 35)
-    project.extra.set("versionCode", 1)
-    project.extra.set("versionName", "1.0.0")
+    project.extra.set("versionCode", 2)
+    project.extra.set("versionName", "2.0.0")
 }
 
 plugins {
