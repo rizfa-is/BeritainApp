@@ -57,7 +57,10 @@ class DiffCategoryCallback : DiffUtil.ItemCallback<ItemCategory>() {
 }
 
 class ViewHolder(private val binding: BeritainItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(category: ItemCategory, onCLick: (item: ItemCategory) -> Unit) {
+    fun bind(
+        category: ItemCategory,
+        onCLick: (item: ItemCategory) -> Unit,
+    ) {
         Glide.with(binding.root.context)
             .load(category.image)
             .placeholder(com.issog.core.R.drawable.ic_placeholder)
